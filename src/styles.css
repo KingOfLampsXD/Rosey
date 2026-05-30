@@ -1,0 +1,125 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --font-display: "Quicksand", system-ui, sans-serif;
+  --font-body: "Nunito", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 1rem;
+  --background: oklch(0.96 0.03 12);
+  --foreground: oklch(0.28 0.08 350);
+  --card: oklch(0.98 0.02 350 / 0.7);
+  --card-foreground: oklch(0.28 0.08 350);
+  --primary: oklch(0.72 0.18 6);
+  --primary-foreground: oklch(0.99 0.005 350);
+  --secondary: oklch(0.9 0.06 340);
+  --secondary-foreground: oklch(0.3 0.1 350);
+  --muted: oklch(0.93 0.03 340);
+  --muted-foreground: oklch(0.5 0.06 340);
+  --accent: oklch(0.85 0.12 20);
+  --accent-foreground: oklch(0.25 0.08 350);
+  --border: oklch(0.85 0.05 340 / 0.5);
+  --ring: oklch(0.72 0.18 6);
+
+  --sakura-1: oklch(0.95 0.05 350);
+  --sakura-2: oklch(0.88 0.1 10);
+  --sakura-3: oklch(0.78 0.15 15);
+  --sky-top: oklch(0.85 0.08 30);
+  --sky-mid: oklch(0.82 0.1 350);
+  --sky-bot: oklch(0.75 0.12 340);
+
+  --gradient-sky: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 45%, var(--sky-bot) 100%);
+  --gradient-heart: linear-gradient(135deg, oklch(0.78 0.2 15), oklch(0.7 0.22 360));
+  --gradient-card: linear-gradient(160deg, oklch(0.99 0.01 350 / 0.85), oklch(0.94 0.05 340 / 0.7));
+  --shadow-soft: 0 10px 40px -10px oklch(0.6 0.15 350 / 0.35);
+  --shadow-glow: 0 0 60px oklch(0.85 0.18 10 / 0.45);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body, #root { height: 100%; }
+  body {
+    background: var(--gradient-sky);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.01em; }
+}
+
+@keyframes petal-fall {
+  0% { transform: translate3d(0,-10vh,0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  100% { transform: translate3d(var(--drift, 40px), 110vh, 0) rotate(720deg); opacity: 0; }
+}
+@keyframes float-up {
+  0% { transform: translate(-50%, 0) scale(1); opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx, 0px)), -160px) scale(1.6); opacity: 0; }
+}
+@keyframes pulse-glow {
+  0%,100% { box-shadow: 0 0 30px oklch(0.8 0.2 10 / 0.5), inset 0 0 20px oklch(1 0 0 / 0.3); }
+  50% { box-shadow: 0 0 60px oklch(0.85 0.22 15 / 0.8), inset 0 0 30px oklch(1 0 0 / 0.4); }
+}
+@keyframes lantern-sway {
+  0%,100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+@keyframes glow-orb {
+  0%,100% { transform: translateY(0) scale(1); opacity: 0.5; }
+  50% { transform: translateY(-30px) scale(1.2); opacity: 0.9; }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes bounce-soft {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.heart-btn {
+  background: var(--gradient-heart);
+  animation: pulse-glow 2.4s ease-in-out infinite;
+  transition: transform 0.12s ease-out;
+}
+.heart-btn:active { transform: scale(0.92); }
+.heart-btn:hover { transform: scale(1.05); }
+
+.glass {
+  background: var(--gradient-card);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid oklch(1 0 0 / 0.4);
+  box-shadow: var(--shadow-soft);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, oklch(0.55 0.22 10), oklch(0.65 0.2 350));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
